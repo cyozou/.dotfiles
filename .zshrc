@@ -5,7 +5,7 @@
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # LS の色
-eval $(dircolors .dircolors-solarized/dircolors.256dark)
+eval $(dircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
 
 alias ls='ls --color=auto'
 alias la='ls -Alh'
