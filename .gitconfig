@@ -1,6 +1,6 @@
 [user]
-	name = k-fujita
-	email = k-fujita@ist.osaka-u.ac.jp
+  name = k-fujita
+  email = k-fujita@ist.osaka-u.ac.jp
 
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
@@ -14,7 +14,7 @@
 [core]
   excludesfile = ~/.gitignore  # globalな.gitignoreの指定
   autocrlf = input                 # CRLFを自動変換
-  editor = vim
+  editor = emacs
   quotepath = false
 [merge]
   tool = vimdiff
