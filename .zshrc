@@ -14,7 +14,6 @@ alias l=ls
 alias p=pushd pp=popd
 alias df='df -h'
 alias du='du -h'
-
 export JAVA_HOME="/Library/Internet Plug-ins/JavaAppletPlugin.plugin/Contents/Home"
 export JAVA=$JAVA_HOME/bin
 
@@ -181,4 +180,22 @@ function print_known_hosts (){
   fi  
 }
 _cache_hosts=($( print_known_hosts ))
+
+# # -----------------------------
+# # Git
+# # -----------------------------
+
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f "
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT='${vcs_info_msg_0_}'$RPROMPT
 

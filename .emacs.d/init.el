@@ -18,6 +18,7 @@
 (prefer-coding-system 'utf-8)
 (setq file-name-coding-system 'utf-8-hfs)
 (setq local-coding-system 'utf-8-hfs)
+(set-clipboard-coding-system 'sjis)
 
 ; 起動時の画面はいらない
 (setq inhibit-startup-message t)
@@ -36,12 +37,20 @@
 ; 画面スクロール時の重複行数
 (setq next-screen-context-lines 1)
 
+; 1行ずつスクロール
+(setq scroll-step 1)
+
+; shell
+(global-set-key [f5] 'shell)
+
+; IM
+(setq default-input-method "MacOSX")
 
 ;; ----------------------------------------------------
 ;; 表示関連
 ;; ----------------------------------------------------
 
-; 行番号を左に表示f
+; 行番号を左に表示
 (require 'linum)
 (global-linum-mode t)
 (set-face-attribute 'linum nil :foreground "IndianRed" :height 0.8)
@@ -55,6 +64,7 @@
 
 ; ビープ音を鳴らさない
 (setq visible-bell t)
+(setq ring-bell-function 'ignore)
 
 ; 対応する括弧を光らせる。
 (show-paren-mode t)
@@ -130,7 +140,7 @@
 ; インデントはTabではなくSpace
 (setq-default indent-tabs-mode nil)
 
-; インデントは4スペース
+;インデントは4スペース
 (setq-default c-basic-offset 4)
 
 ; 補完時に大文字小文字を区別しない
@@ -155,10 +165,6 @@
 ;; キーバインド
 ;; ----------------------------------------------------
 
-; CUA mode
-;(cua-mode t)
-;(setq cua-enable-cua-keys nil)
-
 ; 補完
 (define-key global-map (kbd "C-c C-i") 'dabbrev-expand)
 
@@ -182,29 +188,6 @@
 (global-set-key [?\s-g] 'isearch-repeat-forward)
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-h" 'help)
-
-; コピー アンド ペースト
-;; system-type predicates
-;; from http://d.hatena.ne.jp/tomoya/20090807/1249601308
-(setq darwin-p   (eq system-type 'darwin)
-      linux-p    (eq system-type 'gnu/linux)
-      carbon-p   (eq system-type 'mac)
-      meadow-p   (featurep 'meadow))
-
-; Emacs と Mac のクリップボード共有
-; from http://hakurei-shain.blogspot.com/2010/05/mac.html
-(defun copy-from-osx ()
-  (shell-command-to-string "pbpaste"))
-
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
-
-(if (or darwin-p carbon-p)
-  (setq interprogram-cut-function 'paste-to-osx)
-  (setq interprogram-paste-function 'copy-from-osx))
 
 ;; ----------------------------------------------------
 ;; バックアップ関連
